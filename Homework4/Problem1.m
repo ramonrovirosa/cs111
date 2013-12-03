@@ -14,25 +14,22 @@ function [a] = Problem1()
     x = linspace(a, b, m);
     dx = x(2)-x(1);
     dt=.5*dx;
-    A=zeros(m, m);
-    RHS=zeros(m, 1);
+    U=zeros(m);
+    U=cos(pi*x);
+
     figure('Position',[0 scrsz(4)/3 scrsz(3)/2 scrsz(4)/2]);
     axis([a b a b]);
-    A(1, 1)=-1;
-    A(m, m)=-1;
-    RHS(1)=1;
-    RHS(m)=1;
     
     while(t<t_f)
         %t=t_f;
-        for i=2:m-1
-          A(i, i)=(1-c*(dt/dx));
-          A(i, i-1)=(c*(dt/dx));
-          RHS(i)=cos(pi*(x(i)-c*t));
+        U_prev=U;
+        for i=2:m
+            U=U_prev-c*(dt/dx)*(U_prev(i)-U_prev(i-1));
         end
-        U=A\RHS;
-        t=t+dt;
+        U(1)=U_prev(1)-c*(dt/dx)*(U_prev(1)-U_prev(m));
+         t=t+dt;
     end
+
     plot(U, 'b');
     hold on;
     
@@ -59,24 +56,21 @@ function [a] = Problem1()
     x = linspace(a, b, m);
     dx = x(2)-x(1);
     dt=.5*dx;
-    A=zeros(m, m);
-    RHS=zeros(m, 1);
+    
     figure('Position',[scrsz(3)/2 scrsz(4)/3 scrsz(3)/2 scrsz(4)/2]);
     axis([a b a b]);
-    A(1, 1)=-1;
-    A(m, m)=-1;
-    RHS(1)=1;
-    RHS(m)=1;
+
+    U=zeros(m);
+    U=cos(pi*x);
     
     while(t<t_f)
-        %t=t_f;
-        for i=2:m-1
-          A(i, i)=(1+c*(dt/dx));
-          A(i, i+1)=(-c*(dt/dx));
-          RHS(i)=cos(pi*(x(i)-c*t));
+       %t=t_f;
+        U_prev=U;
+        for i=1:m-1
+            U=U_prev-c*(dt/dx)*(U_prev(i+1)-U_prev(i));
         end
-        U=A\RHS;
-        t=t+dt;
+        U(m)=U_prev(m)-c*(dt/dx)*(U_prev(1)-U_prev(m));
+         t=t+dt;
     end
     plot(U, 'b');
     hold on;
@@ -95,6 +89,3 @@ function [a] = Problem1()
     
     
 end
-
-
-
