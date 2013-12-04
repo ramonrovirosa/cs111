@@ -38,36 +38,34 @@ scrsz = get(0,'ScreenSize');
     %v(:, pi/2)=0;
        
     figure('Position',[0 scrsz(4)/3 scrsz(3)/2 scrsz(4)/2]);
-    axis([a b a b]);
+    %axis([a b a b]);
     
-    while(t<=t_f)
-            %hold on;
-            mesh(x, y, rho);
-            axis ([-pi/2 pi/2 -pi/2 pi/2 0 1 ]);
-            pause(.05);
-            
-           %hold on 
-        %end
-        t=t+dt;
-        for i=2:m-1
-           for j=2:m-1
+    while(t<t_f)
+        mesh(x,y, rho);
+        axis ([-pi/2 pi/2 -pi/2 pi/2 0 1.5 ]);
+        pause(.05);
+        
+        for i=1:m
+           for j=1:m
               u(i,j)=-cos(x(i))*sin(y(j))*cos(t);
               v(i,j)=sin(x(i))*cos(y(j))*cos(t);
            end
         end
+        t=t+dt;
         rho_old=rho;
         for i=2:m-1
            for j=2:m-1
-              if(v(i,j)<=0)
-                      rho(i,j) = rho(i,j) - v(i,j)*(rho_old(i,j+1)-rho_old(i,j))/dy;
-              else
-                      rho(i,j) = rho(i,j) - v(i,j)*(rho_old(i,j)-rho_old(i,j-1))/dy;
-              end
-              if(u(i,j)<=0)
-                      rho(i,j) = rho(i,j) - u(i,j)*(rho_old(i+1,j)-rho_old(i,j))/dx;
-              else
-                      rho(i,j) = rho(i,j) - u(i,j)*(rho_old(i,j)-rho_old(i-1,j))/dx;
-              end                 
+              
+                  if(v(i,j)<=0)
+                          rho(i,j) = rho(i,j) - v(i,j)*(rho_old(i,j+1)-rho_old(i,j));
+                  else
+                          rho(i,j) = rho(i,j) - v(i,j)*(rho_old(i,j)-rho_old(i,j-1));
+                  end
+                  if(u(i,j)<=0)
+                          rho(i,j) = rho(i,j) - u(i,j)*(rho_old(i+1,j)-rho_old(i,j));
+                  else
+                          rho(i,j) = rho(i,j) - u(i,j)*(rho_old(i,j)-rho_old(i-1,j));
+                  end
            end
            
         end
