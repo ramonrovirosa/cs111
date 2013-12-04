@@ -2,8 +2,7 @@
 %Ramon Rovirosa and Graham Guletz
 
 function [a] = Problem2()
-scrsz = get(0,'ScreenSize');
-    
+    scrsz = get(0,'ScreenSize');
     m=100;%number of grid points
     a=-pi/2;
     b=pi/2;
@@ -45,6 +44,15 @@ scrsz = get(0,'ScreenSize');
         axis ([-pi/2 pi/2 -pi/2 pi/2 0 1 ]);
         pause(.00000000005);
         
+        if(t==0)
+            title('Plot for 2D Upwind Scheme for t=0');
+            pause(5);
+        end
+        if((t>(t_f/2)-dt)&&(t<(t_f/2)+dt))
+            title('Plot for 2D Upwind Scheme for t=tfinal/2');
+            pause(5);
+        end
+        
         for i=1:m
            for j=1:m
               u(i,j)=-cos(x(i))*sin(y(j))*cos(t);
@@ -71,7 +79,7 @@ scrsz = get(0,'ScreenSize');
         end
        
     end
-
+    title('Plot for 2D Upwind Scheme for t=tfinal');
     figure('Position',[scrsz(4)/3 scrsz(4)/3 scrsz(3)/2 scrsz(4)/2]);
     g=quiver(x, y, u, v, 'Color', 'black');
     drawnow;
@@ -83,7 +91,7 @@ scrsz = get(0,'ScreenSize');
     
     
     
-    title('Plot for 2D Upwind Scheme');
+    
     %legend('Numerical');
     set(gca, 'XTickLabel', -pi/2:dx:pi/2);
     %hold off;
