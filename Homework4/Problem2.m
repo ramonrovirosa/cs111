@@ -41,16 +41,18 @@ scrsz = get(0,'ScreenSize');
     axis([a b a b]);
     
     while(t<=t_f)
-        if t == t_f 
+            %hold on;
             mesh(x, y, rho);
-            axis ([-pi/2 pi/2 -pi/2 pi/2 0 100 ]);
-            %hold on; 
-        end
+            axis ([-pi/2 pi/2 -pi/2 pi/2 0 1 ]);
+            pause(.05);
+            
+           %hold on 
+        %end
         t=t+dt;
         for i=2:m-1
            for j=2:m-1
-              u(i,j)=-cos(i)*sin(j)*cos(t);
-              v(i,j)=sin(i)*cos(j)*cos(t);
+              u(i,j)=-cos(x(i))*sin(y(j))*cos(t);
+              v(i,j)=sin(x(i))*cos(y(j))*cos(t);
            end
         end
         rho_old=rho;
