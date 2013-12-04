@@ -43,7 +43,7 @@ scrsz = get(0,'ScreenSize');
     while(t<t_f)
         mesh(x,y, rho);
         axis ([-pi/2 pi/2 -pi/2 pi/2 0 1 ]);
-        pause(.005);
+        pause(.00000000005);
         
         for i=1:m
            for j=1:m
@@ -57,14 +57,14 @@ scrsz = get(0,'ScreenSize');
            for j=2:m-1
               
                   if(v(i,j)<=0)
-                          rho(i,j) = rho(i,j) - v(i,j)*(rho_old(i,j+1)-rho_old(i,j));
+                          rho(i,j) = rho(i,j) - dt*v(i,j)*(rho_old(i,j+1)-rho_old(i,j))/dy;
                   else
-                          rho(i,j) = rho(i,j) - v(i,j)*(rho_old(i,j)-rho_old(i,j-1));
+                          rho(i,j) = rho(i,j) - dt*v(i,j)*(rho_old(i,j)-rho_old(i,j-1))/dy;
                   end
                   if(u(i,j)<=0)
-                          rho(i,j) = rho(i,j) - u(i,j)*(rho_old(i+1,j)-rho_old(i,j));
+                          rho(i,j) = rho(i,j) - dt*u(i,j)*(rho_old(i+1,j)-rho_old(i,j))/dx;
                   else
-                          rho(i,j) = rho(i,j) - u(i,j)*(rho_old(i,j)-rho_old(i-1,j));
+                          rho(i,j) = rho(i,j) - dt*u(i,j)*(rho_old(i,j)-rho_old(i-1,j))/dx;
                   end
            end
            
