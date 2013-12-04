@@ -37,13 +37,13 @@ scrsz = get(0,'ScreenSize');
     %v(:, -pi/2)=0;
     %v(:, pi/2)=0;
        
-    figure('Position',[0 scrsz(4)/3 scrsz(3)/2 scrsz(4)/2]);
-    %axis([a b a b]);
     
+    %axis([a b a b]);
+    figure('Position',[0 scrsz(4)/3 scrsz(3)/2 scrsz(4)/2]);
     while(t<t_f)
         mesh(x,y, rho);
-        axis ([-pi/2 pi/2 -pi/2 pi/2 0 1.5 ]);
-        pause(.05);
+        axis ([-pi/2 pi/2 -pi/2 pi/2 0 1 ]);
+        pause(.005);
         
         for i=1:m
            for j=1:m
@@ -72,10 +72,10 @@ scrsz = get(0,'ScreenSize');
        
     end
 
-    %figure('Position',[scrsz(4)/3 scrsz(4)/3 scrsz(3)/2 scrsz(4)/2]);
-    %g=quiver(x, y, u, v, 'Color', 'black');
-    %drawnow;
-    %refreshdata;
+    figure('Position',[scrsz(4)/3 scrsz(4)/3 scrsz(3)/2 scrsz(4)/2]);
+    g=quiver(x, y, u, v, 'Color', 'black');
+    drawnow;
+    refreshdata;
     %mesh(x, y, rho);
     %plot(rho, 'b');
     %hold on;
